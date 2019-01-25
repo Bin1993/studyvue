@@ -11,7 +11,7 @@
     </div>
     <div class="btns">
       <button type="button" @click="submit()">登录</button>
-      <button type="button" @click="()=>{this.$router.push('/reg')}">注册</button>
+      <button type="button" @click="()=>{this.$router.push({'name':'reg'})}">注册</button>
     </div>
   </form>
 </template>
@@ -27,7 +27,17 @@
     },
     methods: {
       submit () {
+        if (this.name.trim() === '') {
+          alert('请输入登录名')
+          return
+        }
+        if (this.password.trim() === '') {
+          alert('请输入密码')
+          return
+        }
         if (localStorage.getItem('name') === this.name && localStorage.getItem('password') === this.password) {
+          this.name = ''
+          this.password = ''
           this.$router.push({ name: 'list' })
         } else {
           alert('登录失败，请检查用户名与密码')
@@ -42,5 +52,6 @@
     padding: 30px;
     font-size: 18px;
     font-weight: bold;
+    text-align: center;
   }
 </style>

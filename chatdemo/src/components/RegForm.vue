@@ -11,7 +11,7 @@
     </div>
     <div class="form-input">
       <label>再次密码</label>
-      <input type="password" v-model="passwordRepeart">
+      <input type="password" v-model="passwordRepeat">
     </div>
     <div class="btns">
       <button type="button" @click="reg()">确定</button>
@@ -27,12 +27,25 @@
       return {
         name: '',
         password: '',
-        passwordRepeart: ''
+        passwordRepeat: ''
       }
     },
     methods: {
       reg () {
-        if (this.password === this.passwordRepeart && this.name !== '') {
+        if (this.name.trim() === '') {
+          alert('请输入登录名')
+          return
+        }
+        if (this.password.trim() === '') {
+          alert('请输入密码')
+          return
+        }
+        if (this.passwordRepeat.trim() === '') {
+          alert('请再次输入密码')
+          return
+        }
+
+        if (this.password === this.passwordRepeat) {
           localStorage.setItem('name', this.name)
           localStorage.setItem('password', this.password)
           this.$router.push({ name: 'login' })
@@ -49,5 +62,6 @@
     padding: 30px;
     font-size: 18px;
     font-weight: bold;
+    text-align: center;
   }
 </style>
